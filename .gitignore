@@ -1,0 +1,26 @@
+# Raw Data and Results
+Raw_data/
+Results/
+R script/
+
+# External data resources (MSigDB GMTs, gencode tables, etc.) — license/redistribution risk
+Resources/
+# R/RStudio configuration and history
+.Rhistory
+.Rproj.user/
+*.Rproj
+
+# rds data
+*.rds
+
+# h5ad data
+*.h5ad
+
+# pipeline runtime artifacts
+logs/
+.tmp_sort/
+# Archived analyses (scripts+Results+logs per topic, each with README) — kept on disk only
+archive/
+
+# Papers (PDF)
+*.pdf
