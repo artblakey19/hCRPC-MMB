@@ -280,8 +280,6 @@ utils_save_png(p, OUT_DIR, "SingleR_UMAP_by_patient.png", w = 24, h = 15)
 # ============================================================
 # Celltype assignment (res 0.5, 19 clusters) ----
 # ============================================================
-# 실행환경(아마 N_CORES)이 달라지면 cluster 번호가 바뀔 수 있음.
-# 직접 실행하기 보다는 combined_CRPC.rds를 로드해 사용할 것을 권장.
 CELLTYPE_MAP <- c(
     `0`  = "Epithelial",          `1`  = "Fibroblast",
     `2`  = "Epithelial",          `3`  = "Epithelial",
@@ -399,7 +397,6 @@ str_obj <- recluster_stromal(combined_CRPC)
 #   c9  분화 SM (DES/ACTG2/MYLK/CNN1),  c8  MYH11+ 저복잡도 SM
 #   c10 Schwann (PLP1/S100B/SOX10/CDH19)
 #   c0 APOD+ / c1 ASPN·OGN·C7 / c3 PENK·PTGDS / c7 CA3·APOE fibroblast
-# rerun 시 subcluster 번호가 바뀔 수 있음 → Stromal/ 그림 보고 map 을 확인·수정할 것
 STROMAL_MAP <- c(
     `0` = "Fibroblast", `1` = "Fibroblast", `2` = "Fibroblast",
     `3` = "Fibroblast", `7` = "Fibroblast",

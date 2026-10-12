@@ -14,7 +14,6 @@ OUT_RDS <- "Results/05_Epithelial_Downstream/epi_annotated.rds"
 dir.create(OUT_DIR, showWarnings = FALSE, recursive = TRUE)
 
 # Cluster → label map ----
-# Rerun 시 cluster 번호가 바뀔 수 있으니 확인할 것
 #   BE 5 = cl3 (AP-1/heat-stress), OE = cl6 (CFTR+), LE(ARPC) = cl9 (KLK2/FOLH1),
 #   Ionocyte = cl11 (FOXI1/ATP6V), Club = cl2 (MMP7/PIGR).
 cluster_to_label <- c(

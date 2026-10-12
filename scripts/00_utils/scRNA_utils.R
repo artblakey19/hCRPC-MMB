@@ -38,8 +38,17 @@ utils_write_crosstab <- function(rows, cols, dir, file) {
 }
 
 # Clustering ----
+# SCTransform 결과(cluster 구성에도 영향)는 future worker 수에 따라 달라짐 (seed 와 무관).
+# sctransform 이 유전자를 worker 수만큼 나눠 glmGamPoi로 연산하는데 같이 계산하는 유전자 구성에 따라 결과가 약간씩 다름.
+# 저장된 결과와 label map 은 30 workers 기준 → N_CORES 와 무관하게 SCT 는 SCT_WORKERS 로 실행.
+# RStudio, Windows는 fork 가 안 돼 worker를 하나만 사용해서 결과를 재현할 수 없음, worker 수가 맞지 않으면 raise error.
+SCT_WORKERS <- 30
+
 #' SCTransform → PCA → Harmony → JoinLayers (RNA 는 환자별 split 상태여야 함)
 utils_sct_harmony <- function(obj) {
+  with(future::plan("multicore", workers = SCT_WORKERS), local = TRUE)
+  # worker 수가 맞지 않으면 error
+  stopifnot(future::nbrOfWorkers() == SCT_WORKERS)
   obj <- SCTransform(obj, verbose = FALSE)
   obj <- RunPCA(obj, verbose = FALSE)
   set.seed(42)  # Harmony k-means init RNG
