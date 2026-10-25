@@ -28,7 +28,8 @@ GENES <- c(
     "PRPS1",      # phosphoribosyl pyrophosphate synthetase 1
     "PNP",        # purine nucleoside phosphorylase
     "CCL2",       # C-C motif chemokine ligand 2 / MCP-1
-    "KLF5"        # Kruppel-like factor 5; basal/squamous lineage TF
+    "KLF5",        # Kruppel-like factor 5; basal/squamous lineage TF
+    "NSD2"        # Reported in NEPC
 )
 
 epi <- readRDS(IN_RDS)

@@ -44,13 +44,18 @@ utils_write_crosstab <- function(rows, cols, dir, file) {
 # RStudio, Windows는 fork 가 안 돼 worker를 하나만 사용해서 결과를 재현할 수 없음, worker 수가 맞지 않으면 raise error.
 SCT_WORKERS <- 30
 
-#' SCTransform → PCA → Harmony → JoinLayers (RNA 는 환자별 split 상태여야 함)
-utils_sct_harmony <- function(obj) {
+#' SCTransform (SCT_WORKERS) → PCA
+utils_sct_pca <- function(obj) {
   with(future::plan("multicore", workers = SCT_WORKERS), local = TRUE)
   # worker 수가 맞지 않으면 error
   stopifnot(future::nbrOfWorkers() == SCT_WORKERS)
   obj <- SCTransform(obj, verbose = FALSE)
-  obj <- RunPCA(obj, verbose = FALSE)
+  RunPCA(obj, verbose = FALSE)
+}
+
+#' SCTransform → PCA → Harmony → JoinLayers (RNA 는 환자별 split 상태여야 함)
+utils_sct_harmony <- function(obj) {
+  obj <- utils_sct_pca(obj)
   set.seed(42)  # Harmony k-means init RNG
   obj <- IntegrateLayers(
     object = obj,
